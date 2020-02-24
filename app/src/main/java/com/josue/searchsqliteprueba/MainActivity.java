@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         adapter = new SearchAdapter(this, database.getFriend());
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nombre = database.getFriend().get(recyclerView.getChildAdapterPosition(view)).getName();
+
+                Toast.makeText(MainActivity.this, String.format("aqui: %s", nombre), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         recyclerView.setAdapter(adapter);
         recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override

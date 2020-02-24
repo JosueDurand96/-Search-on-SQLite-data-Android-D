@@ -31,10 +31,11 @@ class SearchViewHolder extends RecyclerView.ViewHolder {
     }
 }
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> implements  View.OnClickListener{
 
     public Context context;
     public List<Friend> friends;
+    private View.OnClickListener listener;
 
     public SearchAdapter(Context context, List<Friend> friends) {
         this.context = context;
@@ -47,6 +48,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
         View itemView = inflater.inflate(R.layout.layout_item, parent, false);
 
 
+        itemView.setOnClickListener(this);
 
         return new SearchViewHolder(itemView);
     }
@@ -59,8 +61,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
         holder.phone.setText(friends.get(position).getPhone());
     }
 
+
+    public  void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
+
     @Override
     public int getItemCount() {
         return friends.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (listener!=null){
+            listener.onClick(view);
+        }
     }
 }
