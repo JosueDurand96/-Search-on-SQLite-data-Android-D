@@ -41,11 +41,35 @@ public class Database extends SQLiteAssetHelper {
                 friend.setAddress(cursor.getString(cursor.getColumnIndex("Address")));
                 friend.setEmail(cursor.getString(cursor.getColumnIndex("Email")));
                 friend.setPhone(cursor.getString(cursor.getColumnIndex("Phone")));
+                result.add(friend);
             } while (cursor.moveToNext());
 
         }
         return result;
     }
+
+
+    //get all name of name
+    public List<String> getName() {
+        SQLiteDatabase db = getReadableDatabase();
+        SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+
+        // make sure all is column name in your Table
+        String[] sqlSelect = {"Name"};
+        String tableName = "Friends";
+
+        qb.setTables(tableName);
+        Cursor cursor = qb.query(db, sqlSelect, null, null, null, null, null);
+        List<String> result = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                result.add(cursor.getString(cursor.getColumnIndex("Name")));
+            } while (cursor.moveToNext());
+
+        }
+        return result;
+    }
+
 
     // Function get all friends by name
     public List<Friend> getAllFriendbyName(String name) {
@@ -59,7 +83,7 @@ public class Database extends SQLiteAssetHelper {
 
 
 
-        Cursor cursor = qb.query(db, sqlSelect, "Name LIKE ?", new String[]{"%"+name+"%"}, null, null, null);
+        Cursor cursor = qb.query(db, sqlSelect, "Name LIKE ?" , new String[]{"%"+name+"%"}, null, null, null);
         List<Friend> result = new ArrayList<>();
         if (cursor.moveToFirst()) {
             do {
@@ -69,6 +93,7 @@ public class Database extends SQLiteAssetHelper {
                 friend.setAddress(cursor.getString(cursor.getColumnIndex("Address")));
                 friend.setEmail(cursor.getString(cursor.getColumnIndex("Email")));
                 friend.setPhone(cursor.getString(cursor.getColumnIndex("Phone")));
+                result.add(friend);
             } while (cursor.moveToNext());
 
         }

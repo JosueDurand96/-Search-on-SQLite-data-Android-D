@@ -13,6 +13,7 @@ public class Friend {
     }
 
     public Friend() {
+
     }
 
     public int getId() {

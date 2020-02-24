@@ -1,6 +1,8 @@
 package com.josue.searchsqliteprueba.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,19 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.josue.searchsqliteprueba.Model.Friend;
 import com.josue.searchsqliteprueba.R;
+import com.josue.searchsqliteprueba.SecondActivity;
 
 import java.util.List;
 
 
 class SearchViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView name,address,email,phone;
-    public SearchViewHolder(View itemView){
+    public TextView name, address, email, phone;
+
+    public SearchViewHolder(View itemView) {
         super(itemView);
-        name = (TextView)itemView.findViewById(R.id.txtNombre);
-        address = (TextView)itemView.findViewById(R.id.txtAnddress);
-        email = (TextView)itemView.findViewById(R.id.txtEmail);
-        phone = (TextView)itemView.findViewById(R.id.txtphone);
+        name = (TextView) itemView.findViewById(R.id.txtNombre);
+        address = (TextView) itemView.findViewById(R.id.txtAnddress);
+        email = (TextView) itemView.findViewById(R.id.txtEmail);
+        phone = (TextView) itemView.findViewById(R.id.txtphone);
     }
 }
 
@@ -32,21 +36,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
     public Context context;
     public List<Friend> friends;
 
-    public SearchAdapter(Context context,List<Friend> friends){
+    public SearchAdapter(Context context, List<Friend> friends) {
         this.context = context;
         this.friends = friends;
     }
 
-    @NonNull
     @Override
-    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SearchViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.layout_item,parent,false);
+        View itemView = inflater.inflate(R.layout.layout_item, parent, false);
+
+
+
         return new SearchViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
+    public void onBindViewHolder( SearchViewHolder holder, int position) {
         holder.name.setText(friends.get(position).getName());
         holder.address.setText(friends.get(position).getAddress());
         holder.email.setText(friends.get(position).getEmail());
